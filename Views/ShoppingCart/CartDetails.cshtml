@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "CartDetails";
+}
+
+<h2>CartDetails</h2>
+@using ShoppingCart.Controllers;
+@if (Session["cart"] != null)
+{
+    int counter = 1;
+<table cellpadding="2" cellspacing="2">
+    <tr>
+        <th>Sr No</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Sub Total</th>
+    </tr>
+    
+    @foreach (Item item in (List<Item>)Session["cart"])
+    {
+            <tr>
+            <td>@counter</td>
+            <td>@item.Product.ProductName</td>
+            <td>@item.Product.ProductPrice</td>
+            <td>@item.Quantity</td>
+            <td>@(item.Product.ProductPrice * item.Quantity)</td>
+            <td>@Html.ActionLink("Remove from Cart", "RemovefromCart", "ShoppingCart", new { id = @item.Product.ProductID }, null)</td>
+        </tr>
+        counter++;
+    }
+</table>
+}
+else{
+    <p>@ViewBag.Message</p> 
+}
+<br />
+@Html.ActionLink("Continue Shopping", "Index", "Home")
+@Html.ActionLink("Proceed To Checkout", "Checkout", "ShoppingCart")
+
+
+

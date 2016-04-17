@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ShoppingCartModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cart_details">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="Sub_total" Type="Double" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Order_Details" Relationship="Self.FK_Cart_details_OrderID" FromRole="Cart_details" ToRole="Order_Details" />
+    <NavigationProperty Name="ProductTable" Relationship="Self.FK_Cart_details_ProductID" FromRole="Cart_details" ToRole="ProductTable" />
+  </EntityType>
+  <EntityType Name="Order_Details">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PostalCode" Type="Int32" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="UserID" Type="Int64" Nullable="false" />
+    <Property Name="OrderTotal" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Cart_details" Relationship="Self.FK_Cart_details_OrderID" FromRole="Order_Details" ToRole="Cart_details" />
+    <NavigationProperty Name="UserInfo" Relationship="Self.FK_Order_Details_User_ID" FromRole="Order_Details" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="ProductTable">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductPrice" Type="Double" />
+    <Property Name="ProductImage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Cart_details" Relationship="Self.FK_Cart_details_ProductID" FromRole="ProductTable" ToRole="Cart_details" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int64" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Order_Details" Relationship="Self.FK_Order_Details_User_ID" FromRole="UserInfo" ToRole="Order_Details" />
+  </EntityType>
+  <Association Name="FK_Cart_details_OrderID">
+    <End Role="Order_Details" Type="Self.Order_Details" Multiplicity="1" />
+    <End Role="Cart_details" Type="Self.Cart_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order_Details">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="Cart_details">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cart_details_ProductID">
+    <End Role="ProductTable" Type="Self.ProductTable" Multiplicity="1" />
+    <End Role="Cart_details" Type="Self.Cart_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductTable">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Cart_details">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Details_User_ID">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Order_Details" Type="Self.Order_Details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Order_Details">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ShoppingCartEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cart_details" EntityType="Self.Cart_details" />
+    <EntitySet Name="Order_Details" EntityType="Self.Order_Details" />
+    <EntitySet Name="ProductTables" EntityType="Self.ProductTable" />
+    <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
+    <AssociationSet Name="FK_Cart_details_OrderID" Association="Self.FK_Cart_details_OrderID">
+      <End Role="Order_Details" EntitySet="Order_Details" />
+      <End Role="Cart_details" EntitySet="Cart_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cart_details_ProductID" Association="Self.FK_Cart_details_ProductID">
+      <End Role="ProductTable" EntitySet="ProductTables" />
+      <End Role="Cart_details" EntitySet="Cart_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Details_User_ID" Association="Self.FK_Order_Details_User_ID">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="Order_Details" EntitySet="Order_Details" />
+    </AssociationSet>
+    <FunctionImport Name="Insert_shoppingCart">
+      <Parameter Name="ProductID" Mode="In" Type="Decimal" />
+      <Parameter Name="Quantity" Mode="In" Type="Decimal" />
+      <Parameter Name="Sub_total" Mode="In" Type="Double" />
+    </FunctionImport>
+    <FunctionImport Name="Insert_shoppingInfo">
+      <Parameter Name="UserID" Mode="In" Type="Int64" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="Address" Mode="In" Type="String" />
+      <Parameter Name="City" Mode="In" Type="String" />
+      <Parameter Name="State" Mode="In" Type="String" />
+      <Parameter Name="PostalCode" Mode="In" Type="Decimal" />
+      <Parameter Name="Country" Mode="In" Type="String" />
+      <Parameter Name="Phone" Mode="In" Type="Decimal" />
+      <Parameter Name="OrderTotal" Mode="In" Type="Decimal" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

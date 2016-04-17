@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ShoppingCartModelStoreContainer" CdmEntityContainer="ShoppingCartEntities">
+    <EntitySetMapping Name="Cart_details">
+      <EntityTypeMapping TypeName="ShoppingCartModel.Cart_details">
+        <MappingFragment StoreEntitySet="Cart_details">
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Sub_total" ColumnName="Sub_total" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order_Details">
+      <EntityTypeMapping TypeName="ShoppingCartModel.Order_Details">
+        <MappingFragment StoreEntitySet="Order_Details">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductTables">
+      <EntityTypeMapping TypeName="ShoppingCartModel.ProductTable">
+        <MappingFragment StoreEntitySet="ProductTable">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+          <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfoes">
+      <EntityTypeMapping TypeName="ShoppingCartModel.UserInfo">
+        <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Insert_shoppingCart" FunctionName="ShoppingCartModel.Store.Insert_shoppingCart" />
+    <FunctionImportMapping FunctionImportName="Insert_shoppingInfo" FunctionName="ShoppingCartModel.Store.Insert_shoppingInfo" />
+  </EntityContainerMapping>
+</Mapping>

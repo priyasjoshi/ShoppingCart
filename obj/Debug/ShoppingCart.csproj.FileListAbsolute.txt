@@ -1,0 +1,13 @@
+E:\University of Bridgeport\FALL-2015\Master'sProject\ShoppingCart\ShoppingCart\bin\ShoppingCart.dll.config
+E:\University of Bridgeport\FALL-2015\Master'sProject\ShoppingCart\ShoppingCart\bin\ShoppingCart.dll
+E:\University of Bridgeport\FALL-2015\Master'sProject\ShoppingCart\ShoppingCart\bin\ShoppingCart.pdb
+E:\University of Bridgeport\FALL-2015\Master'sProject\ShoppingCart\ShoppingCart\obj\Debug\ShoppingCart.dll
+E:\University of Bridgeport\FALL-2015\Master'sProject\ShoppingCart\ShoppingCart\obj\Debug\ShoppingCart.pdb
+E:\University of Bridgeport\FALL-2015\Master'sProject\ShoppingCart\ShoppingCart\bin\Antlr3.Runtime.dll
+E:\University of Bridgeport\FALL-2015\Master'sProject\ShoppingCart\ShoppingCart\bin\System.Web.Optimization.dll
+E:\University of Bridgeport\FALL-2015\Master'sProject\ShoppingCart\ShoppingCart\bin\WebGrease.dll
+E:\University of Bridgeport\FALL-2015\Master'sProject\ShoppingCart\ShoppingCart\bin\Antlr3.Runtime.pdb
+E:\University of Bridgeport\FALL-2015\Master'sProject\ShoppingCart\ShoppingCart\bin\System.Web.Optimization.xml
+E:\University of Bridgeport\FALL-2015\Master'sProject\ShoppingCart\ShoppingCart\bin\Facebook.dll
+E:\University of Bridgeport\FALL-2015\Master'sProject\ShoppingCart\ShoppingCart\bin\Facebook.xml
+E:\University of Bridgeport\FALL-2015\Master'sProject\ShoppingCart\ShoppingCart\obj\Debug\ShoppingCart.csprojResolveAssemblyReference.cache

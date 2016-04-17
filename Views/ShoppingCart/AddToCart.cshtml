@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "AddToCart";
+    int counter = 1;
+}
+@using ShoppingCart.Controllers;
+<h2>AddToCart</h2>
+<table cellpadding="2" cellspacing="2">
+    <tr>
+        <th>Sr No</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Sub Total</th>
+        <th>Total Quantity</th>
+    </tr>
+    @foreach (Item item in (List<Item>) Session["cart"])
+    {
+        <tr>
+            <td>@counter</td>
+            <td>@item.Product.ProductName</td>
+            <td>@item.Product.ProductPrice</td>
+            <td>@item.Quantity</td>
+            <td>@(item.Product.ProductPrice*item.Quantity)</td>
+            <td>@Html.ActionLink("Remove from Cart", "RemovefromCart", "ShoppingCart", new { id = @item.Product.ProductID }, null)</td>
+        </tr>
+        counter++;
+    }
+</table>
+<br />
+@Html.ActionLink("Continue Shopping", "Index", "Home")
+@Html.ActionLink("Proceed To Checkout", "Checkout", "ShoppingCart")
+
+
+

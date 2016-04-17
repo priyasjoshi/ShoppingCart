@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ShoppingCartModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cart_details">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Sub_total" Type="float" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order_Details">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="100" />
+    <Property Name="City" Type="varchar" MaxLength="50" />
+    <Property Name="State" Type="varchar" MaxLength="50" />
+    <Property Name="PostalCode" Type="int" />
+    <Property Name="Country" Type="varchar" MaxLength="50" />
+    <Property Name="Phone" Type="int" />
+    <Property Name="UserID" Type="bigint" Nullable="false" />
+    <Property Name="OrderTotal" Type="decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="ProductTable">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProductPrice" Type="float" />
+    <Property Name="ProductImage" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="bigint" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Cart_details_OrderID">
+    <End Role="Order_Details" Type="Self.Order_Details" Multiplicity="1" />
+    <End Role="Cart_details" Type="Self.Cart_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order_Details">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="Cart_details">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cart_details_ProductID">
+    <End Role="ProductTable" Type="Self.ProductTable" Multiplicity="1" />
+    <End Role="Cart_details" Type="Self.Cart_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductTable">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Cart_details">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Details_User_ID">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="Order_Details" Type="Self.Order_Details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Order_Details">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="Insert_shoppingCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductID" Type="numeric" Mode="In" />
+    <Parameter Name="Quantity" Type="numeric" Mode="In" />
+    <Parameter Name="Sub_total" Type="float" Mode="In" />
+  </Function>
+  <Function Name="Insert_shoppingInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="bigint" Mode="In" />
+    <Parameter Name="Name" Type="varchar" Mode="In" />
+    <Parameter Name="Email" Type="varchar" Mode="In" />
+    <Parameter Name="FirstName" Type="varchar" Mode="In" />
+    <Parameter Name="LastName" Type="varchar" Mode="In" />
+    <Parameter Name="Address" Type="varchar" Mode="In" />
+    <Parameter Name="City" Type="varchar" Mode="In" />
+    <Parameter Name="State" Type="varchar" Mode="In" />
+    <Parameter Name="PostalCode" Type="numeric" Mode="In" />
+    <Parameter Name="Country" Type="varchar" Mode="In" />
+    <Parameter Name="Phone" Type="numeric" Mode="In" />
+    <Parameter Name="OrderTotal" Type="decimal" Mode="In" />
+  </Function>
+  <EntityContainer Name="ShoppingCartModelStoreContainer">
+    <EntitySet Name="Cart_details" EntityType="Self.Cart_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order_Details" EntityType="Self.Order_Details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductTable" EntityType="Self.ProductTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Cart_details_OrderID" Association="Self.FK_Cart_details_OrderID">
+      <End Role="Order_Details" EntitySet="Order_Details" />
+      <End Role="Cart_details" EntitySet="Cart_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cart_details_ProductID" Association="Self.FK_Cart_details_ProductID">
+      <End Role="ProductTable" EntitySet="ProductTable" />
+      <End Role="Cart_details" EntitySet="Cart_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Details_User_ID" Association="Self.FK_Order_Details_User_ID">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Order_Details" EntitySet="Order_Details" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
